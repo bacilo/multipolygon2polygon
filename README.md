@@ -1,2 +1,21 @@
 # multipolygon2polygon
-Short python script that creates a csv file with polygons described in the format of one row per point, from a csv file containing a field for multipolygon, where the whole polygon is described in one Multipolygon field
+Short python script that creates a csv file with Polygons described in the format of one row per point, from a CSV file containing a field for Multipolygon, where a whole Polygon is described in one Multipolygon field
+
+## Usage
+
+python multipolygon2polygon [source_file] [target_file]
+
+The script takes column 100 of the CSV [source_file], which contains the Multipolygon field, and breaks it down into a Rows of points that describe the polygons and replicates the ID (first column of the [source_file]) of which those rows pertain to (for later merging when visualizing the data for instance).
+
+## Header row of [target_file]
+
+FID, PolygonID, PointID, longitude, latitude
+
+FID - From the original file, replicated so that in later usage it can be merged with the source file
+Polygon ID - So that we know which rows pertain to which polygon
+Point ID - Orders the polygon
+longitude, latitude - Coordinates for that specific point
+
+## Warning and Future Updates
+
+This was developed quickly to solve a specific problem. I may spend more time on improvements (for instance detecting which column has the Multipolygon field, or allowing the user to specify which columns should be 
