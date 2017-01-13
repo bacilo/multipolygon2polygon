@@ -10,9 +10,6 @@ if len(sys.argv) == 3:
 	# Maybe opening/integrity tests could be done beforehand
 	sourcefile = sys.argv[1]
 	targetfile = sys.argv[2]
-# elif (len(sys.argv) == 1):
-# 	sourcefile = "Sociodata.csv"
-# 	targetfile = "polys.csv"
 else:
 	exit("usage: multipolygon2polygon source target")
 
