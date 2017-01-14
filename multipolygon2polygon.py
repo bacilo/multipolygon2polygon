@@ -154,7 +154,8 @@ def main():
 			    csvfile.close
 	    finally:
 	        f.close()
-
+	except ValueError as err:
+		print ("Value Error: {0}".format(err))
 	except IOError as err:
 	    print("IO error: {0}".format(err))
 	except:
