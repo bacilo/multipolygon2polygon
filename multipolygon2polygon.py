@@ -2,6 +2,59 @@ import argparse
 import sys
 import csv
 
+def get_id_col(header, idcol):
+	"""
+	Finds the number for the column in the CSV file that contains the ID value to be used in the target file as well 
+
+	Parameters:
+	-----------
+	header:
+		The array corresponding to the first line of the CSV file (containing the column names)
+
+	idcol:
+		The specified id column name (or a default empty string if one is not specified)
+
+	Returns:
+	--------
+	The number corresponding to the id column (0 by default if one is not specified)
+	
+	Exceptions:
+	-----------
+	Throws ValueError exception if the specified id column cannot be found
+	"""
+
+	if idcol == '':
+		return 0
+
+	return header.index(idcol)
+
+def get_multipolygon_col(header, idcol):
+	"""
+	Finds the number for the column in the CSV file that contains the Multipolygon value to be used in the target file as well 
+
+	Parameters:
+	-----------
+	header:
+		The array corresponding to the first line of the CSV file (containing the column names)
+
+	idcol:
+		The specified multipolygon column name (or a default empty string if one is not specified)
+
+	Returns:
+	--------
+	The number corresponding to the multipolygon column
+		- Right now returns 100 if nothing is specified as it fits with the specific example I built this for
+		@TODO : Autodetect Multipolygon field
+	
+	Exceptions:
+	-----------
+	Throws ValueError exception if the specified multipolygon column cannot be found
+	"""
+
+	if idcol == '':
+		return 100
+
+	return header.index(idcol)
 
 def main():
 
@@ -43,8 +96,7 @@ def main():
 			    reader = csv.reader(csvfile, dialect)
 
 			    # Remove header... add flexibility here, ask user to select which fields to keep?
-			    reader.next()[0]
-
+			    header = reader.next()
 			    data_list = list(reader)
 				
 				 
@@ -74,7 +126,7 @@ def main():
 			    	# Pick colum that has MULTIPOLYGON field (here 100, but best detect automatically in the future)
 			    	# Substring removes the initial declaration of MULTIPOLYGON and the opening and closing parenthesis
 			    	# Splits the polygon stucture into its different points
-			    	temp = line[100][16:-3]
+			    	temp = line[get_multipolygon_col(header, args.multipolcol)][16:-3]
 			    	coords = temp.split(',')
 
 			    	# Start pointID count for this particular line
@@ -92,7 +144,7 @@ def main():
 			    			lat = coord[1]
 
 			    			# Add the row to the CSV file
-			    			f.write(line[0] + ", " + str(polygonId) + ", " + str(pointId) + ", " + lng + ", " + lat + "\n")
+			    			f.write(line[get_id_col(header, args.idcol)] + ", " + str(polygonId) + ", " + str(pointId) + ", " + lng + ", " + lat + "\n")
 
 			    			# move on to the next point in the polygon
 			    			pointId=pointId+1
