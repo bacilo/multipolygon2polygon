@@ -12,6 +12,8 @@ def main():
 	parser.add_argument('output_file', help='Target file name')
 	parser.add_argument('-b','--begin', help='Row to start parsing Source file from',required=False, type=int, default=0)
 	parser.add_argument('-e','--end',help='Row to stop parsint the Source file at', required=False, type=int, default=0)
+	parser.add_argument('-i','--idcol', help='Column that contains ID to be perserved in the output_file',required=False, default='')
+	parser.add_argument('-m','--multipolcol',help='Column that contains Multipolygon field', required=False, default='')
 	args = parser.parse_args()
 	 
 	outputfile = args.output_file
