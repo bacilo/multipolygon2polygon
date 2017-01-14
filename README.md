@@ -3,11 +3,13 @@ Short python script that creates a csv file with Polygons described in the forma
 
 ## Usage
 
-python multipolygon2polygon [source_file] [target_file]
+python multipolygon2polygon source_file output_file [-b --begin BEGIN] [-e --end END]
 
-The script takes column 100 of the CSV [source_file], which contains the Multipolygon field, and breaks it down into a Rows of points that describe the polygons and replicates the ID (first column of the [source_file]) of which those rows pertain to (for later merging when visualizing the data for instance).
+The script takes column 100 of the CSV 'source_file', which contains the Multipolygon field, and breaks it down into a Rows of points that describe the polygons and replicates the ID (first column of the 'source_file') of which those rows pertain to (for later merging when visualizing the data for instance).
 
-## Header row of [target_file]
+Possiblility to limit the first and last rows of the source_file to be parsed by setting the limits using the -b and -e optional flags in the command line.
+
+## Header row of 'output_file'
 
 FID, PolygonID, PointID, longitude, latitude
 
